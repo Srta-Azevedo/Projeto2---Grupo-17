@@ -4,26 +4,29 @@
   <meta charset="UTF-8">
   <title>Assistente de IA</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="devboticon.jpg" type="image/jpg">
 </head>
 <body>
   <div class="container">
+    <button id="botao_tema">Mudar Tema</button>
+
     <h1>🤖 Assistente de IA</h1>
     <label for="apiKey">OpenAI API Key:</label>
-    <input type="password" id="apiKey" placeholder="Insira sua API Key aqui" />
+    <input type="password" id="apiKey" placeholder="Insira sua API Key aqui"/>
 
     <label for="model">Modelo:</label>
     <select id="model">
-      <option value="gpt-1 - Gratuito">GPT-1 - Gratuito</option>
-      <option value="gpt-3.5-turbo">GPT-3.5 - Turbo</option>
-      <option value="gpt-4>GPT-4">GPT-4</option>
+      <option value="gpt-3.5-turbo">GPT-3.5 - Turbo (Gratuito)</option>
+      <option value="gpt-4o">GPT-4o (Pague pelo Uso)</option>
+      <option value="gpt-4">GPT-4 (Assinatura Mensal)</option>
     </select>
 
     <label for="userInput">Faça sua pergunta:</label>
     <textarea id="userInput" rows="4" placeholder="Digite sua pergunta aqui..."></textarea>
-
-    <button onclick="consultar()">Perguntar</button>
+    <button id="askButton">Perguntar</button>
 
     <div id="responseBox"></div>
+    <button id="copyButton">Copiar Resposta</button>
   </div>
 
   <script src="script.js"></script>
