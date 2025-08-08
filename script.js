@@ -37,21 +37,26 @@ botao_pergunta.addEventListener('click', async () => {
     /* salvando a chave no localStorage */
     localStorage.setItem('chave', texto_chave);
 
-    /* chamando a API 😭*/
+    /* chamando a API do Google Gemini */
     try {
-        const resposta = await fetch("https://api.openai.com/v1/chat/completions", {
+        const apiKey = texto_chave;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo_selecionado}:generateContent?key=${apiKey}`;
+
+        // O corpo da requisição do Gemini
+        const requestBody = {
+            contents: [{
+                parts: [{
+                    text: texto_pergunta
+                }]
+            }]
+        };
+
+        const resposta = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${texto_chave}`
             },
-            body: JSON.stringify({
-                model: modelo_selecionado,
-                messages: [{
-                    role: "user",
-                    content: texto_pergunta
-                }]
-            })
+            body: JSON.stringify(requestBody)
         });
 
         if (!resposta.ok) {
@@ -60,13 +65,10 @@ botao_pergunta.addEventListener('click', async () => {
         }
 
         const dados = await resposta.json();
-
-        if (dados.choices && dados.choices.length > 0) {
-            const texto_resposta = dados.choices[0].message.content;
-            campo_resposta.textContent = texto_resposta;
-        } else {
-            campo_resposta.textContent = "A API não retornou uma resposta válida.";
-        }
+        
+        // O caminho para pegar a resposta no Gemini
+        const texto_resposta = dados.candidates[0].content.parts[0].text;
+        campo_resposta.textContent = texto_resposta;
         
     } catch (erro) {
         console.error("A requisição falhou!", erro);
@@ -74,24 +76,6 @@ botao_pergunta.addEventListener('click', async () => {
     } finally {
         botao_pergunta.disabled = false;
         botao_pergunta.textContent = "Perguntar";
-    }
-});
-
-/* adicionado evento ao botão de copiar */
-botao_copiar.addEventListener('click', async () => {
-    const texto_copiado = campo_resposta.textContent;
-
-    if (!texto_copiado) {
-        alert("Não há texto para copiar!");
-        return; // interrompe
-    }
-
-    try {
-        await navigator.clipboard.writeText(texto_copiado);
-        alert("Resposta copiada para a área de transferência!");
-    } catch(err) {
-        console.error("Falha ao copiar.", err);
-        alert("Não foi possível copiar a resposta.");
     }
 });
 
