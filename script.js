@@ -56,7 +56,7 @@ botao_pergunta.addEventListener('click', async () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestBody)
-        }); // O fetch termina aqui. O erro foi removido.
+        });
 
         if (!resposta.ok) {
             const erroData = await resposta.json();
@@ -77,7 +77,7 @@ botao_pergunta.addEventListener('click', async () => {
     }
 });
 
-/* adicionado evento ao botão de copiar */
+/* adicionando evento ao botão de copiar */
 botao_copiar.addEventListener('click', async () => {
     const texto_copiado = campo_resposta.textContent;
 
@@ -95,7 +95,7 @@ botao_copiar.addEventListener('click', async () => {
     }
 });
 
-/* adicionado evento ao botão de tema */
+/* adicionando evento ao botão de tema */
 botao_tema.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 
