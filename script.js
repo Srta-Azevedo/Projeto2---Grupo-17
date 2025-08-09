@@ -4,8 +4,8 @@ const campo_pergunta = document.getElementById('userInput');
 const campo_chave = document.getElementById('apiKey');
 const campo_resposta = document.getElementById('responseBox');
 const botao_pergunta = document.getElementById('askButton');
-const botao_copiar = document.getElementById('copyButton');
-const botao_tema_site = document.getElementById('botao_tema');
+const botao_copiar = document.getElementById('copy_button');
+const botao_tema = document.getElementById('botao_tema');
 
 /* pegando a chave salva */
 const chave_salva = localStorage.getItem('chave');
@@ -42,7 +42,6 @@ botao_pergunta.addEventListener('click', async () => {
         const apiKey = texto_chave;
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo_selecionado}:generateContent?key=${apiKey}`;
 
-        // O corpo da requisição do Gemini
         const requestBody = {
             contents: [{
                 parts: [{
@@ -57,7 +56,7 @@ botao_pergunta.addEventListener('click', async () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestBody)
-        });
+        }); // O fetch termina aqui. O erro foi removido.
 
         if (!resposta.ok) {
             const erroData = await resposta.json();
@@ -66,7 +65,6 @@ botao_pergunta.addEventListener('click', async () => {
 
         const dados = await resposta.json();
         
-        // O caminho para pegar a resposta no Gemini
         const texto_resposta = dados.candidates[0].content.parts[0].text;
         campo_resposta.textContent = texto_resposta;
         
@@ -79,11 +77,29 @@ botao_pergunta.addEventListener('click', async () => {
     }
 });
 
+/* adicionado evento ao botão de copiar */
+botao_copiar.addEventListener('click', async () => {
+    const texto_copiado = campo_resposta.textContent;
+
+    if (!texto_copiado) {
+        alert("Não há texto para copiar!");
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(texto_copiado);
+        alert("Resposta copiada para a área de transferência!");
+    } catch(err) {
+        console.error("Falha ao copiar.", err);
+        alert("Não foi possível copiar a resposta.");
+    }
+});
+
 /* adicionado evento ao botão de tema */
-botao_tema_site.addEventListener('click', () => {
+botao_tema.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
 
-    // salva a escolha no localStorage
+    // salvando a escolha no localStorage
     if (document.body.classList.contains('dark-mode')) {
         localStorage.setItem('theme', 'dark');
     } else {
