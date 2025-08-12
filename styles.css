@@ -24,8 +24,8 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--cor-fundo); /* Roxo bem claro no fundo */
-  color: var(--cor-texto); /* Roxo escuro para textos */
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
   padding: 20px;
 }
 
@@ -66,7 +66,7 @@ input, select, textarea {
   resize: vertical;
 }
 
-/* Botão */
+/* Botão padrão */
 button {
   margin-top: 20px;
   width: 100%;
@@ -95,11 +95,29 @@ button:hover {
   background-color: var(--cor-botao-fundo);
   border: none;
   cursor: pointer;
-  transition: background-color 0.3 ease;
+  transition: background-color 0.3s ease;
 }
 
 #botao_tema:hover {
   background-color: #8000c9;
+}
+
+/* botão de limpar (novo) */
+.botao-novo {
+  background-color: #ff4c4c; /* vermelho chamativo para representar "limpar" */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.botao-novo:hover {
+  background-color: #cc0000; /* tom mais escuro no hover */
 }
 
 /* Caixa de resposta */
@@ -113,18 +131,28 @@ button:hover {
   white-space: pre-wrap;
 }
 
+/* Modo escuro */
 body.dark-mode {
-  --cor-fundo: #2d2d44;       
-  --cor-texto: #e0e0ff;          
+  --cor-fundo: #2d2d44;
+  --cor-texto: #e0e0ff;
   --cor-container-fundo: #3a3a5a;
   --cor-container-borda: #a259ff;
-  --cor-titulo: #c69cff;      
-  --cor-label: #e0e0ff;           
-  --cor-borda-ist: #6a6a8a;   
+  --cor-titulo: #c69cff;
+  --cor-label: #e0e0ff;
+  --cor-borda-ist: #6a6a8a;
   --cor-fundo-ist: #33334f;
-  --cor-ist: #e0e0ff;  
+  --cor-ist: #e0e0ff;
   --cor-botao-texto: white;
   --cor-botao-fundo: #a259ff;
   --cor-fundo-box: #33334f;
   --cor-borda-box: #6a6a8a;
+}
+
+/* modo escuro para o botão limpar */
+body.dark-mode .botao-novo {
+  background-color: #ff6b6b;
+}
+
+body.dark-mode .botao-novo:hover {
+  background-color: #d43f3f;
 }
