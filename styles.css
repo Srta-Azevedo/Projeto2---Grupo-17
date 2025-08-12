@@ -1,11 +1,15 @@
-/* Reset básico */
+/* =======================
+   RESET BÁSICO
+======================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* criando variáveis para mudar o tema do site através do seletor root */
+/* =======================
+   VARIÁVEIS DE TEMAS
+======================= */
 :root {
   --cor-fundo: #f5f0ff;
   --cor-texto: #3d0066;
@@ -22,6 +26,9 @@
   --cor-borda-box: #d9b3ff;
 }
 
+/* =======================
+   ESTILO GERAL
+======================= */
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: var(--cor-fundo);
@@ -29,7 +36,7 @@ body {
   padding: 20px;
 }
 
-/* Centraliza o conteúdo */
+/* Centralização do container principal */
 .container {
   max-width: 500px;
   margin: 0 auto;
@@ -40,7 +47,9 @@ body {
   box-shadow: 0 0 12px rgba(155, 89, 182, 0.2);
 }
 
-/* Título principal */
+/* =======================
+   TÍTULOS E TEXTOS
+======================= */
 h1 {
   text-align: center;
   color: var(--cor-titulo);
@@ -55,7 +64,10 @@ label {
   font-weight: bold;
 }
 
-input, select, textarea {
+/* Campos de entrada */
+input,
+select,
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid var(--cor-borda-ist);
@@ -66,9 +78,10 @@ input, select, textarea {
   resize: vertical;
 }
 
-/* Botão padrão */
+/* =======================
+   BOTÕES PADRÃO
+======================= */
 button {
-  margin-top: 20px;
   width: 100%;
   padding: 12px 20px;
   background-color: var(--cor-botao-fundo);
@@ -77,6 +90,7 @@ button {
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 20px;
   transition: background-color 0.3s ease;
 }
 
@@ -84,7 +98,7 @@ button:hover {
   background-color: #8000c9;
 }
 
-/* botão para mudar o tema */
+/* Botão para mudar o tema */
 #botao_tema {
   margin-top: 0;
   margin-bottom: 15px;
@@ -92,9 +106,6 @@ button:hover {
   padding: 8px 15px;
   font-size: 14px;
   border-radius: 5px;
-  background-color: var(--cor-botao-fundo);
-  border: none;
-  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
@@ -102,9 +113,11 @@ button:hover {
   background-color: #8000c9;
 }
 
-/* botão de limpar (novo) */
+/* =======================
+   BOTÃO DE LIMPAR
+======================= */
 .botao-novo {
-  background-color: #ff4c4c; /* vermelho chamativo para representar "limpar" */
+  background-color: #ff4c4c; /* vermelho para indicar ação crítica */
   color: white;
   border: none;
   border-radius: 10px;
@@ -117,10 +130,12 @@ button:hover {
 }
 
 .botao-novo:hover {
-  background-color: #cc0000; /* tom mais escuro no hover */
+  background-color: #cc0000;
 }
 
-/* Caixa de resposta */
+/* =======================
+   CAIXA DE RESPOSTA
+======================= */
 #responseBox {
   margin-top: 20px;
   background-color: var(--cor-fundo-box);
@@ -131,7 +146,9 @@ button:hover {
   white-space: pre-wrap;
 }
 
-/* Modo escuro */
+/* =======================
+   MODO ESCURO
+======================= */
 body.dark-mode {
   --cor-fundo: #2d2d44;
   --cor-texto: #e0e0ff;
@@ -148,7 +165,7 @@ body.dark-mode {
   --cor-borda-box: #6a6a8a;
 }
 
-/* modo escuro para o botão limpar */
+/* Botão limpar no modo escuro */
 body.dark-mode .botao-novo {
   background-color: #ff6b6b;
 }
