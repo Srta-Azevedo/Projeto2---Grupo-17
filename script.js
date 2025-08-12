@@ -7,7 +7,6 @@ const botao_pergunta = document.getElementById('askButton');
 const botao_copiar = document.getElementById('copy_button');
 const botao_tema = document.getElementById('botao_tema');
 const botaoLimpar = document.querySelector(".botao-novo");
-const formulario = document.querySelector("form");
 
 /* pegando a chave salva */
 const chave_salva = localStorage.getItem('chave');
@@ -87,11 +86,19 @@ botao_copiar.addEventListener('click', async () => {
     }
 });
 
-/* evento para limpar formulário */
-if (botaoLimpar && formulario) {
+/* evento para limpar campos (menos a chave) */
+if (botaoLimpar) {
     botaoLimpar.addEventListener("click", function () {
-        formulario.reset();
-        campo_resposta.textContent = ""; // limpa também a resposta
+        // Guardar a chave
+        const chaveAtual = campo_chave.value;
+
+        // Limpar campos
+        campo_pergunta.value = "";
+        campo_resposta.textContent = "";
+        modelo.selectedIndex = 0;
+
+        // Restaurar a chave
+        campo_chave.value = chaveAtual;
     });
 }
 
