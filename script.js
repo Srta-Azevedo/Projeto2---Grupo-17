@@ -6,6 +6,8 @@ const campo_resposta = document.getElementById('responseBox');
 const botao_pergunta = document.getElementById('askButton');
 const botao_copiar = document.getElementById('copy_button');
 const botao_tema = document.getElementById('botao_tema');
+const botaoLimpar = document.querySelector(".botao-novo");
+const formulario = document.querySelector("form");
 
 /* pegando a chave salva */
 const chave_salva = localStorage.getItem('chave');
@@ -18,13 +20,12 @@ if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark-mode');
 }
 
-/* adicionado evento ao botão de perguntar */
+/* evento para perguntar */
 botao_pergunta.addEventListener('click', async () => {
     const modelo_selecionado = modelo.value;
     const texto_chave = campo_chave.value;
     const texto_pergunta = campo_pergunta.value;
 
-    /* verificando se os campos estão vazios */
     if (texto_chave === '' || texto_pergunta === '') {
         alert("Por favor, preencha a chave da API e a pergunta!");
         return;
@@ -34,27 +35,20 @@ botao_pergunta.addEventListener('click', async () => {
     botao_pergunta.textContent = "Pensando...";
     campo_resposta.textContent = "";
 
-    /* salvando a chave no localStorage */
     localStorage.setItem('chave', texto_chave);
 
-    /* chamando a API do Google Gemini */
     try {
-        const apiKey = texto_chave;
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo_selecionado}:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${modelo_selecionado}:generateContent?key=${texto_chave}`;
 
         const requestBody = {
             contents: [{
-                parts: [{
-                    text: texto_pergunta
-                }]
+                parts: [{ text: texto_pergunta }]
             }]
         };
 
         const resposta = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
         });
 
@@ -64,10 +58,8 @@ botao_pergunta.addEventListener('click', async () => {
         }
 
         const dados = await resposta.json();
-        
-        const texto_resposta = dados.candidates[0].content.parts[0].text;
-        campo_resposta.textContent = texto_resposta;
-        
+        campo_resposta.textContent = dados.candidates[0].content.parts[0].text;
+
     } catch (erro) {
         console.error("A requisição falhou!", erro);
         campo_resposta.textContent = "Desculpe, ocorreu um erro: " + erro.message;
@@ -77,7 +69,7 @@ botao_pergunta.addEventListener('click', async () => {
     }
 });
 
-/* adicionando evento ao botão de copiar */
+/* evento para copiar */
 botao_copiar.addEventListener('click', async () => {
     const texto_copiado = campo_resposta.textContent;
 
@@ -89,20 +81,22 @@ botao_copiar.addEventListener('click', async () => {
     try {
         await navigator.clipboard.writeText(texto_copiado);
         alert("Resposta copiada para a área de transferência!");
-    } catch(err) {
+    } catch (err) {
         console.error("Falha ao copiar.", err);
         alert("Não foi possível copiar a resposta.");
     }
 });
 
-/* adicionando evento ao botão de tema */
+/* evento para limpar formulário */
+if (botaoLimpar && formulario) {
+    botaoLimpar.addEventListener("click", function () {
+        formulario.reset();
+        campo_resposta.textContent = ""; // limpa também a resposta
+    });
+}
+
+/* evento para alterar o tema */
 botao_tema.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
-
-    // salvando a escolha no localStorage
-    if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
-    } else {
-        localStorage.setItem('theme', 'light');
-    }
+    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
 });
