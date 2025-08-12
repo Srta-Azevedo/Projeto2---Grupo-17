@@ -97,6 +97,22 @@ button:hover {
   cursor: pointer;
   transition: background-color 0.3 ease;
 }
+.botao-novo {
+  background-color: #0099ff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  margin: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.botao-novo:hover {
+  background-color: #007acc;
+}
+
 
 #botao_tema:hover {
   background-color: #8000c9;
