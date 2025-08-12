@@ -85,6 +85,19 @@ botao_copiar.addEventListener('click', async () => {
         alert("Não há texto para copiar!");
         return;
     }
+// Aguarda o carregamento da página
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleciona o botão
+    const botaoLimpar = document.querySelector(".botao-novo");
+
+    // Seleciona o formulário (altere o seletor conforme seu HTML)
+    const formulario = document.querySelector("form");
+
+    // Adiciona evento de clique no botão
+    botaoLimpar.addEventListener("click", function () {
+        formulario.reset(); // Limpa todos os campos do formulário
+    });
+});
 
     try {
         await navigator.clipboard.writeText(texto_copiado);
