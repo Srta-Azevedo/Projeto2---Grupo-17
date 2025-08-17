@@ -119,29 +119,3 @@ botao_tema.addEventListener('click', () => {
         localStorage.setItem('theme', 'light');
     }
 });
-
-const contador = document.getElementById('charCounter');
-
-/* defina o limite aqui */
-const LIMITE = 300;
-
-/* garanta o maxlength no textarea */
-campo_pergunta.setAttribute('maxlength', String(LIMITE));
-
-function atualizarContador() {
-  const usado = campo_pergunta.value.length;
-  const restante = LIMITE - usado;
-
-  contador.textContent = `${usado}/${LIMITE} caracteres`;
-
-  // classes de alerta
-  contador.classList.toggle('warn', restante <= Math.floor(LIMITE * 0.2) && restante > 0);
-  contador.classList.toggle('limit', restante === 0);
-}
-
-/* atualiza ao digitar */
-campo_pergunta.addEventListener('input', atualizarContador);
-
-/* atualiza ao carregar a página (ou quando há valor salvo) */
-document.addEventListener('DOMContentLoaded', atualizarContador);
-
